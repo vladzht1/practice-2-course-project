@@ -1,14 +1,13 @@
 package ru.rutmiit.market.models;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
-import java.util.ArrayList;
 
 @Entity
 @Table(name = "users")
