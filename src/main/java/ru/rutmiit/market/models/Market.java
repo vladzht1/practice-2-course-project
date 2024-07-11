@@ -10,37 +10,37 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "markets")
 public class Market extends BaseEntity {
-    private String _name;
-    private String _description;
-    private List<MarketProduct> _products;
-    private List<Order> _orders;
+    private String name;
+    private String description;
+    private List<MarketProduct> products;
+    private List<Order> orders;
 
     public Market(String name, String description, List<MarketProduct> products, List<Order> orders) {
-        _name = name;
-        _description = description;
-        _products = products;
-        _orders = orders;
+        this.name = name;
+        this.description = description;
+        this.products = products;
+        this.orders = orders;
     }
 
     protected Market() {}
 
     @Column(name = "name", length = 127)
     public String getName() {
-        return _name;
+        return name;
     }
 
     @Column(name = "description", length = 2047)
     public String getDescription() {
-        return _description;
+        return description;
     }
 
     @OneToMany()
     public List<MarketProduct> getProducts() {
-        return _products;
+        return products;
     }
 
     @OneToMany
     public List<Order> getOrders() {
-        return _orders;
+        return orders;
     }
 }

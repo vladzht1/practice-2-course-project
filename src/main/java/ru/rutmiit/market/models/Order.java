@@ -12,65 +12,65 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "orders")
 public class Order extends BaseEntity {
-    private Market _market;
-    private Date _createdAt;
-    private Date _updatedAt;
-    private OrderStatus _status;
-    private List<OrderPosition> _orderPositions;
+    private Market market;
+    private Date createdAt;
+    private Date updatedAt;
+    private OrderStatus status;
+    private List<OrderPosition> orderPositions;
 
     public Order(Market market, List<OrderPosition> orderPositions) {
-        _market = market;
-        _orderPositions = orderPositions;
-        _status = OrderStatus.CREATED;
+        this.market = market;
+        this.orderPositions = orderPositions;
+        this.status = OrderStatus.CREATED;
 
-        _createdAt = new Date();
-        _updatedAt = new Date();
+        this.createdAt = new Date();
+        this.updatedAt = new Date();
     }
 
     protected Order() {}
 
     @ManyToOne()
     public Market getMarket() {
-        return _market;
+        return market;
     }
 
     @Column(name = "status")
     public OrderStatus getStatus() {
-        return _status;
+        return status;
     }
 
     @OneToMany()
     public List<OrderPosition> getOrderPositions() {
-        return _orderPositions;
+        return orderPositions;
     }
 
     @Column(name = "created_at")
     public Date getCreationDate() {
-        return _createdAt;
+        return createdAt;
     }
 
     @Column(name = "updated_at")
     public Date getLastUpdatedDate() {
-        return _updatedAt;
+        return updatedAt;
     }
 
-    public void setMarket(Market market) {
-        _market = market;
+    public void setMarket(Market updatedMarket) {
+        market = updatedMarket;
         markAsUpdated();
     }
 
-    public void setStatus(OrderStatus status) {
-        _status = status;
+    public void setStatus(OrderStatus updatedStatus) {
+        status = updatedStatus;
         markAsUpdated();
     }
 
     // FIXME: This setter must have validation
-    public void setOrderPositions(List<OrderPosition> orderPositions) {
-        _orderPositions = orderPositions;
+    public void setOrderPositions(List<OrderPosition> updatedOrderPositions) {
+        orderPositions = updatedOrderPositions;
         markAsUpdated();
     }
 
     private void markAsUpdated() {
-        _updatedAt = new Date();
+        updatedAt = new Date();
     }
 }

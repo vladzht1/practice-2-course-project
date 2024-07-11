@@ -7,33 +7,31 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "products")
 public class Product extends BaseEntity {
-    private String _title;
-    private String _description;
+    private String title;
+    private String description;
 
     public Product(String title, String description) {
-        _title = title;
-        _description = description;
+        this.title = title;
+        this.description = description;
     }
 
     protected Product() {}
 
     @Column(name = "title", length = 511)
     public String getTitle() {
-        return _title;
+        return title;
     }
 
     @Column(name = "description", length = 2047)
     public String getDescription() {
-        return _description;
+        return description;
     }
 
-    // TODO: Transform setters into domain-based methods
-
-    public void setTitle(String title) {
-        _title = title;
+    public void setTitle(String updatedTitle) {
+        title = updatedTitle;
     }
 
-    public void setDescription(String description) {
-        _description = description;
+    public void setDescription(String updatedDescription) {
+        description = updatedDescription;
     }
 }

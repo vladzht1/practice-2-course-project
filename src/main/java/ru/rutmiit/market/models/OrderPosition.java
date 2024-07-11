@@ -8,31 +8,31 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "order_positions")
 public class OrderPosition extends BaseEntity {
-    private Order _order;
-    private double _price;
-    private int _quantity;
+    private Order order;
+    private double price;
+    private int quantity;
 
     public OrderPosition(Order order, double price, int quantity) {
-        _order = order;
-        _price = price;
-        _quantity = quantity;
+        this.order = order;
+        this.price = price;
+        this.quantity = quantity;
     }
 
     protected OrderPosition() {}
 
     @OneToOne()
     public Order getOrder() {
-        return _order;
+        return order;
     }
 
     @Column(name = "price")
     public double getPrice() {
-        return _price;
+        return price;
     }
 
     @Column(name = "quantity")
     public int getQuantity() {
-        return _quantity;
+        return quantity;
     }
 
     // NOTE: This model is IMMUTABLE so there should be no setters
