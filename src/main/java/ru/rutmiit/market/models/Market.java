@@ -22,9 +22,7 @@ public class Market extends BaseEntity {
         _orders = orders;
     }
 
-    // This constructor is required for compatibility with ORM
-    @SuppressWarnings("unused")
-    private Market() {}
+    protected Market() {}
 
     @Column(name = "name", length = 127)
     public String getName() {

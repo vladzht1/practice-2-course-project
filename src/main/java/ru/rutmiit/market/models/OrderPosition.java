@@ -18,9 +18,7 @@ public class OrderPosition extends BaseEntity {
         _quantity = quantity;
     }
 
-    // This constructor is required for compatibility with ORM
-    @SuppressWarnings("unused")
-    private OrderPosition() {}
+    protected OrderPosition() {}
 
     @OneToOne()
     public Order getOrder() {

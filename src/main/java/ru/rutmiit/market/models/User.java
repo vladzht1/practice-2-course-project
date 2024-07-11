@@ -27,9 +27,7 @@ public class User extends BaseEntity {
         _orders = new ArrayList<>();
     }
 
-    // This constructor is required for compatibility with ORM
-    @SuppressWarnings("unused")
-    private User() {}
+    protected User() {}
 
     @Column(name = "first_name", length = 255)
     public String getFirstName() {

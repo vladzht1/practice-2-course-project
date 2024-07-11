@@ -20,9 +20,7 @@ public class MarketProduct extends BaseEntity {
         _quantity = quantity;
     }
 
-    // This constructor is required for compatibility with ORM
-    @SuppressWarnings("unused")
-    private MarketProduct() {}
+    protected MarketProduct() {}
 
     @ManyToOne()
     public Product getProduct() {

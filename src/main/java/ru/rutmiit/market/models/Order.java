@@ -27,9 +27,7 @@ public class Order extends BaseEntity {
         _updatedAt = new Date();
     }
 
-    // This constructor is required for compatibility with ORM
-    @SuppressWarnings("unused")
-    private Order() {}
+    protected Order() {}
 
     @ManyToOne()
     public Market getMarket() {
