@@ -14,13 +14,15 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "orders")
 public class Order extends BaseEntity {
+    private User user;
     private Market market;
     private Date createdAt;
     private Date updatedAt;
     private OrderStatus status;
     private List<OrderPosition> orderPositions;
 
-    public Order(Market market, List<OrderPosition> orderPositions) {
+    public Order(User user, Market market, List<OrderPosition> orderPositions) {
+        this.user = user;
         this.market = market;
         this.orderPositions = orderPositions;
         this.status = OrderStatus.CREATED;
@@ -30,6 +32,11 @@ public class Order extends BaseEntity {
     }
 
     protected Order() {}
+
+    @ManyToOne()
+    public User getUser() {
+        return user;
+    }
 
     @ManyToOne()
     public Market getMarket() {

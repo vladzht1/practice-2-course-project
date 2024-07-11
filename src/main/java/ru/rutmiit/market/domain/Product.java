@@ -2,6 +2,8 @@ package ru.rutmiit.market.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 
 @Entity
@@ -9,10 +11,12 @@ import jakarta.persistence.Table;
 public class Product extends BaseEntity {
     private String title;
     private String description;
+    private ProductCategory productCategory;
 
-    public Product(String title, String description) {
+    public Product(String title, String description, ProductCategory productCategory) {
         this.title = title;
         this.description = description;
+        this.productCategory = productCategory;
     }
 
     protected Product() {}
@@ -27,11 +31,21 @@ public class Product extends BaseEntity {
         return description;
     }
 
+    @Column(name = "product_category")
+    @Enumerated(EnumType.STRING)
+    public ProductCategory getProductCategory() {
+        return productCategory;
+    }
+
     public void setTitle(String updatedTitle) {
         title = updatedTitle;
     }
 
     public void setDescription(String updatedDescription) {
         description = updatedDescription;
+    }
+
+    public void setProductCategory(ProductCategory updatedProductCategory) {
+        productCategory = updatedProductCategory;
     }
 }
