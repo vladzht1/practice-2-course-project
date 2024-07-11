@@ -1,4 +1,4 @@
-package ru.rutmiit.market.models;
+package ru.rutmiit.market.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;

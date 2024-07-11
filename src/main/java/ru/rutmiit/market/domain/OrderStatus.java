@@ -1,4 +1,4 @@
-package ru.rutmiit.market.models;
+package ru.rutmiit.market.domain;
 
 public enum OrderStatus {
     CREATED,
