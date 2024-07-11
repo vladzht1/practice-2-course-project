@@ -17,12 +17,12 @@ public class Product extends BaseEntity {
 
     protected Product() {}
 
-    @Column(name = "title", length = 511)
+    @Column(name = "title", length = 512)
     public String getTitle() {
         return title;
     }
 
-    @Column(name = "description", length = 2047)
+    @Column(name = "description", length = 2048)
     public String getDescription() {
         return description;
     }

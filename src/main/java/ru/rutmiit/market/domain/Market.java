@@ -24,12 +24,12 @@ public class Market extends BaseEntity {
 
     protected Market() {}
 
-    @Column(name = "name", length = 127)
+    @Column(name = "name", length = 128)
     public String getName() {
         return name;
     }
 
-    @Column(name = "description", length = 2047)
+    @Column(name = "description", length = 2048)
     public String getDescription() {
         return description;
     }

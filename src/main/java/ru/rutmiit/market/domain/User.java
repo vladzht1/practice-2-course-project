@@ -28,22 +28,22 @@ public class User extends BaseEntity {
 
     protected User() {}
 
-    @Column(name = "first_name", length = 255)
+    @Column(name = "first_name", length = 256)
     public String getFirstName() {
         return firstName;
     }
 
-    @Column(name = "middle_name", length = 255)
+    @Column(name = "middle_name", length = 256)
     public String getMiddleName() {
         return middleName;
     }
 
-    @Column(name = "last_name", length = 255)
+    @Column(name = "last_name", length = 256)
     public String getLastName() {
         return lastName;
     }
 
-    @Column(name = "email", length = 255)
+    @Column(name = "email", length = 256)
     public String getEmail() {
         return email;
     }
