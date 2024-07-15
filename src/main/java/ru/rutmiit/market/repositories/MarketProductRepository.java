@@ -1,10 +1,14 @@
 package ru.rutmiit.market.repositories;
 
-import org.springframework.stereotype.Repository;
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+import java.util.Optional;
 
 import ru.rutmiit.market.domain.MarketProduct;
 
-@Repository
-public interface MarketProductRepository extends JpaRepository<MarketProduct, Integer> {
+public interface MarketProductRepository {
+    List<MarketProduct> findAll();
+    Optional<MarketProduct> findById(int id);
+    MarketProduct save(MarketProduct market);
+    Optional<MarketProduct> update(MarketProduct market);
+    void deleteById(int id);
 }
