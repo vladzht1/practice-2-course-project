@@ -16,14 +16,21 @@ public class User extends BaseEntity {
     private String middleName;
     private String lastName;
     private String email;
+    private boolean isActive;
     private List<Order> orders;
 
     public User(String firstName, String middleName, String lastName, String email) {
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.email = email;
-        this.orders = new ArrayList<>();
+        setFirstName(firstName);
+        setMiddleName(middleName);
+        setLastName(lastName);
+        setEmail(email);
+        setIsActive(true);
+        setOrders(new ArrayList<>());
+    }
+
+    public User(String firstName, String middleName, String lastName, String email, List<Order> orders) {
+        this(firstName, middleName, lastName, email);
+        setOrders(orders);
     }
 
     protected User() {}
@@ -48,25 +55,50 @@ public class User extends BaseEntity {
         return email;
     }
 
+    @Column(name = "is_active")
+    public boolean getIsActive() {
+        return isActive;
+    }
+
     @OneToMany(fetch = FetchType.LAZY)
     public List<Order> getOrders() {
         return orders;
     }
 
     public void setFirstName(String updatedFirstName) {
+        if (updatedFirstName == null) {
+            return;
+        }
+
         firstName = updatedFirstName;
     }
 
     public void setMiddleName(String updatedMiddleName) {
+        if (updatedMiddleName == null) {
+            return;
+        }
+
         middleName = updatedMiddleName;
     }
 
     public void setLastName(String updatedLastName) {
+        if (updatedLastName == null) {
+            return;
+        }
+
         lastName = updatedLastName;
     }
 
     public void setEmail(String updatedEmail) {
+        if (updatedEmail == null) {
+            return;
+        }
+
         email = updatedEmail;
+    }
+
+    public void setIsActive(boolean updatedActive) {
+        isActive = updatedActive;
     }
 
     // FIXME: There should be no setter for `Orders`
