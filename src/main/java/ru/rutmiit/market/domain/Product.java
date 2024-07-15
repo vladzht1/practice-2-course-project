@@ -38,14 +38,26 @@ public class Product extends BaseEntity {
     }
 
     public void setTitle(String updatedTitle) {
+        if (updatedTitle == null) {
+            return;
+        }
+
         title = updatedTitle;
     }
 
     public void setDescription(String updatedDescription) {
+        if (updatedDescription == null) {
+            return;
+        }
+
         description = updatedDescription;
     }
 
     public void setProductCategory(ProductCategory updatedProductCategory) {
+        if (updatedProductCategory == null) {
+            return;
+        }
+
         productCategory = updatedProductCategory;
     }
 }
