@@ -43,4 +43,36 @@ public class Market extends BaseEntity {
     public List<Order> getOrders() {
         return orders;
     }
+
+    public void setName(String updatedName) {
+        if (updatedName == null) {
+            return;
+        }
+
+        name = updatedName;
+    }
+
+    public void setDescription(String updatedDescription) {
+        if (updatedDescription == null) {
+            return;
+        }
+
+        description = updatedDescription;
+    }
+
+    public void setProducts(List<MarketProduct> updatedProducts) {
+        if (updatedProducts == null) {
+            return;
+        }
+
+        products = updatedProducts;
+    }
+
+    public void setOrders(List<Order> updatedOrders) {
+        if (updatedOrders == null) {
+            return;
+        }
+
+        orders = updatedOrders;
+    }
 }
