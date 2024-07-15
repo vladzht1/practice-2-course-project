@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+    postgres_summer_practice:
+        container_name: db_summer_practice
+        image: postgres:16.2-alpine3.18
+        environment:
+            POSTGRES_DB: "market"
+            POSTGRES_USER: "postgres"
+            POSTGRES_PASSWORD: "root"
+            PGDATA: /var/lib/postgresql/data/db
+        restart: unless-stopped
+
+        networks:
+            - postgres-summer
+
+        volumes:
+            - postgres-data-practice-pg16:/var/lib/postgresql/data
+        ports:
+            - "5432:5432"
+
+    pgadmin_summer_practice:
+        container_name: pgadmin_summer_practice
+        image: dpage/pgadmin4
+        user: "$UID:$GID"
+        environment:
+            PGADMIN_DEFAULT_EMAIL: vlad.zheltov1@gmail.com
+            PGADMIN_DEFAULT_PASSWORD: root
+            PGADMIN_CONFIG_SERVER_MODE: "False"
+        volumes:
+            - pgadmin-summer-practice:/var/lib/pgadmin
+
+        ports:
+            - "5051:80"
+        networks:
+            - postgres-summer
+        restart: unless-stopped
+
+networks:
+    postgres-summer:
+        driver: bridge
+
+volumes:
+    postgres-data-practice-pg16:
+    pgadmin-summer-practice:
