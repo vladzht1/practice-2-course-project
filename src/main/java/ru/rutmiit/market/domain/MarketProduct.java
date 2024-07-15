@@ -11,9 +11,9 @@ public class MarketProduct extends BaseEntity {
     private Product product;
     private Market market;
     private double price;
-    private long quantity;
+    private int quantity;
 
-    public MarketProduct(Product product, Market market, double price, long quantity) {
+    public MarketProduct(Product product, Market market, double price, int quantity) {
         this.product = product;
         this.market = market;
         this.price = price;
@@ -38,7 +38,31 @@ public class MarketProduct extends BaseEntity {
     }
 
     @Column(name = "quantity")
-    public long getQuantity() {
+    public int getQuantity() {
         return quantity;
+    }
+
+    public void setProduct(Product updatedProduct) {
+        product = updatedProduct;
+    }
+
+    public void setMarket(Market updatedMarket) {
+        market = updatedMarket;
+    }
+
+    public void setPrice(double updatedPrice) {
+        if (updatedPrice <= 0) {
+            return;
+        }
+
+        price = updatedPrice;
+    }
+
+    public void setQuantity(int updatedQuantity) {
+        if (updatedQuantity <= 0) {
+            return;
+        }
+
+        quantity = updatedQuantity;
     }
 }
