@@ -30,6 +30,9 @@ services:
         volumes:
             - pgadmin-summer-practice:/var/lib/pgadmin
 
+        links:
+            - "postgres_summer_practice:database"
+
         ports:
             - "5051:80"
         networks:
