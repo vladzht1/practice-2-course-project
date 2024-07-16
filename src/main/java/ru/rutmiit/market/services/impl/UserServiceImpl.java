@@ -20,8 +20,11 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    // TODO: Remove `new` call
-    private ModelMapper mapper = new ModelMapper();
+    private ModelMapper mapper;
+
+    public UserServiceImpl(ModelMapper mapper) {
+        this.mapper = mapper;
+    }
 
     @Override
     public List<UserDto> getAll() {
@@ -32,7 +35,7 @@ public class UserServiceImpl implements UserService {
     public Optional<UserDto> getById(int id) {
         Optional<User> userOpt = userRepository.findById(id);
 
-        if (!userOpt.isPresent()) {
+        if (userOpt.isEmpty()) {
             return Optional.empty();
         }
 
@@ -49,7 +52,7 @@ public class UserServiceImpl implements UserService {
     public UserDto update(UpdateUserDto updateUserDto) {
         Optional<User> userOpt = userRepository.findById(updateUserDto.getId());
 
-        if (!userOpt.isPresent()) {
+        if (userOpt.isEmpty()) {
             throw new UserNotFoundException(updateUserDto.getId());
         }
 
@@ -59,7 +62,7 @@ public class UserServiceImpl implements UserService {
         user.setLastName(updateUserDto.getLastName());
         user.setEmail(updateUserDto.getEmail());
 
-        if (!userRepository.update(user).isPresent()) {
+        if (userRepository.update(user).isEmpty()) {
             // TODO: Implement
             throw new RuntimeException("Error updating user");
         }
@@ -71,7 +74,7 @@ public class UserServiceImpl implements UserService {
     public void remove(int id) throws UserNotFoundException {
         Optional<User> userOpt = userRepository.findById(id);
 
-        if (!userOpt.isPresent()) {
+        if (userOpt.isEmpty()) {
             throw new UserNotFoundException(id);
         }
 

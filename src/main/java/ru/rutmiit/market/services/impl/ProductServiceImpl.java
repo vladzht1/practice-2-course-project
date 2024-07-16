@@ -19,8 +19,11 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
 
-    // TODO: Remove `new` call
-    private ModelMapper mapper = new ModelMapper();
+    private ModelMapper mapper;
+
+    public ProductServiceImpl(ModelMapper mapper) {
+        this.mapper = mapper;
+    }
 
     @Override
     public List<ProductDto> findAll() {

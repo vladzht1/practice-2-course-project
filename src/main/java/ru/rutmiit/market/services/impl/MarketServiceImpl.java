@@ -21,7 +21,11 @@ public class MarketServiceImpl implements MarketService {
     @Autowired
     private MarketRepository marketRepository;
 
-    private ModelMapper mapper = new ModelMapper();
+    private ModelMapper mapper;
+
+    public MarketServiceImpl(ModelMapper mapper) {
+        this.mapper = mapper;
+    }
 
     @Override
     public List<MarketDto> findAll() {

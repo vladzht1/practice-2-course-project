@@ -32,19 +32,15 @@ public class MarketProductDomainServiceImpl implements MarketProductService {
     @Autowired
     private MarketProductRepository marketProductRepository;
 
-    private ModelMapper mapper = new ModelMapper();
+    private ModelMapper mapper;
+
+    public MarketProductDomainServiceImpl(ModelMapper mapper) {
+        this.mapper = mapper;
+    }
 
     @Override
     public List<MarketProductDto> findAll() {
-        return marketProductRepository.findAll().stream().map(
-            (marketProduct) -> new MarketProductDto(
-                marketProduct.getId(),
-                marketProduct.getProduct(),
-                marketProduct.getMarket(),
-                marketProduct.getPrice(),
-                marketProduct.getQuantity()
-            )
-        ).toList();
+        return marketProductRepository.findAll().stream().map(marketProduct -> mapper.map(marketProduct, MarketProductDto.class)).toList();
     }
 
     @Override
@@ -57,13 +53,7 @@ public class MarketProductDomainServiceImpl implements MarketProductService {
 
         MarketProduct marketProduct = marketProductOpt.get();
 
-        return Optional.of(new MarketProductDto(
-            marketProduct.getId(),
-            marketProduct.getProduct(),
-            marketProduct.getMarket(),
-            marketProduct.getPrice(),
-            marketProduct.getQuantity()
-        ));
+        return Optional.of(mapper.map(marketProduct, MarketProductDto.class));
     }
 
     @Override
