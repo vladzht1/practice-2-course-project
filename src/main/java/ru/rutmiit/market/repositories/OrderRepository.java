@@ -1,16 +1,19 @@
 package ru.rutmiit.market.repositories;
 
 import java.util.List;
-
-import org.springframework.stereotype.Repository;
-import org.springframework.data.repository.query.Param;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
+import java.util.Optional;
 
 import ru.rutmiit.market.domain.Order;
+import ru.rutmiit.market.domain.OrderPosition;
 
-@Repository
-public interface OrderRepository extends JpaRepository<Order, Integer> {
-    @Query(value = "select order from Order as order join order.user as user where user.id = :user_id")
-    List<Order> findByUserId(@Param(value = "user_id") Integer userId);
+public interface OrderRepository {
+    List<Order> findAll();
+    List<Order> findAllOrdersByUserId(int userId);
+    List<Order> findAllOrdersByMarketId(int marketId);
+    List<OrderPosition> findOrderPositionsByProductId(int productId);
+    Optional<Order> findById(int id);
+    Order save(Order order);
+    OrderPosition saveOrderPosition(OrderPosition orderPosition);
+    Optional<Order> update(Order order);
+    Optional<OrderPosition> updateOrderPosition(OrderPosition orderPosition);
 }
