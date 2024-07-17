@@ -14,14 +14,24 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.rutmiit.market.dtos.MarketDto;
 import ru.rutmiit.market.dtos.api.AddMarketDto;
 import ru.rutmiit.market.dtos.api.UpdateMarketDto;
+import ru.rutmiit.market.dtos.internal.MarketReportUnitDto;
+import ru.rutmiit.market.dtos.internal.MarketSaleRecommendationDto;
 import ru.rutmiit.market.exceptions.MarketNotFoundException;
+import ru.rutmiit.market.services.DiscountRecommendationsService;
 import ru.rutmiit.market.services.MarketService;
+import ru.rutmiit.market.services.ProductService;
 
 @RestController
 @RequestMapping("/api/markets")
 public class MarketRestController {
     @Autowired
     private MarketService marketService;
+
+    @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private DiscountRecommendationsService discountRecommendationsService;
 
     @GetMapping()
     public Iterable<MarketDto> getAllMarkets() {
@@ -32,11 +42,21 @@ public class MarketRestController {
     public MarketDto getMarketById(@PathVariable() int id) throws MarketNotFoundException {
         Optional<MarketDto> marketOpt = marketService.findById(id);
 
-        if (!marketOpt.isPresent()) {
+        if (marketOpt.isEmpty()) {
             throw new MarketNotFoundException(id);
         }
 
         return marketOpt.get();
+    }
+
+    @GetMapping("/{id}/report")
+    public Iterable<MarketReportUnitDto> getMarketReport(@PathVariable() int id) {
+        return productService.getBestSoldProductsByMarketId(id);
+    }
+
+    @GetMapping("/{id}/discount_recommendations")
+    public Iterable<MarketSaleRecommendationDto> getDiscountRecommendations(@PathVariable() int id) {
+        return discountRecommendationsService.getRecommendationsForDiscountsAndSalesByMarketId(id);
     }
 
     @PostMapping()
@@ -48,7 +68,7 @@ public class MarketRestController {
     public MarketDto update(@RequestBody UpdateMarketDto updateMarketDto) throws MarketNotFoundException {
         Optional<MarketDto> marketOpt = marketService.update(updateMarketDto);
 
-        if (!marketOpt.isPresent()) {
+        if (marketOpt.isEmpty()) {
             throw new MarketNotFoundException(updateMarketDto.getId());
         }
 

@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ru.rutmiit.market.dtos.MarketProductDto;
 import ru.rutmiit.market.dtos.UserDto;
 import ru.rutmiit.market.dtos.api.AddUserDto;
 import ru.rutmiit.market.dtos.api.UpdateUserDto;
 import ru.rutmiit.market.exceptions.UserNotFoundException;
+import ru.rutmiit.market.services.UserRecommendationsService;
 import ru.rutmiit.market.services.UserService;
 
 @RestController
@@ -23,6 +25,9 @@ import ru.rutmiit.market.services.UserService;
 public class UserRestController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRecommendationsService userRecommendationsService;
 
     @GetMapping()
     public Iterable<UserDto> getAllUsers() {
@@ -33,11 +38,16 @@ public class UserRestController {
     public UserDto getById(@PathVariable() int id) throws UserNotFoundException {
         Optional<UserDto> userOpt = userService.getById(id);
 
-        if (!userOpt.isPresent()) {
+        if (userOpt.isEmpty()) {
             throw new UserNotFoundException(id);
         }
 
         return userOpt.get();
+    }
+
+    @GetMapping("/{id}/recommendations")
+    public Iterable<MarketProductDto> getUserProductRecommendations(@PathVariable() int id) {
+        return userRecommendationsService.findRecommendedProductsForUser(id);
     }
 
     @PostMapping()

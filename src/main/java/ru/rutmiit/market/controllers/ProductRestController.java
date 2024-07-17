@@ -32,7 +32,7 @@ public class ProductRestController {
     public ProductDto getProductById(@PathVariable() int id) throws ProductNotFoundException {
         Optional<ProductDto> productOpt = productService.findById(id);
 
-        if (!productOpt.isPresent()) {
+        if (productOpt.isEmpty()) {
             throw new ProductNotFoundException(id);
         }
 
@@ -48,7 +48,7 @@ public class ProductRestController {
     public ProductDto update(@RequestBody UpdateProductDto updateProductDto) throws ProductNotFoundException {
         Optional<ProductDto> productOpt = productService.update(updateProductDto);
 
-        if (!productOpt.isPresent()) {
+        if (productOpt.isEmpty()) {
             throw new ProductNotFoundException(updateProductDto.getId());
         }
 

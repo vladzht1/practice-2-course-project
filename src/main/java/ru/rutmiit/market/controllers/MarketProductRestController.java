@@ -33,7 +33,7 @@ public class MarketProductRestController {
     public MarketProductDto getMarketProductById(@PathVariable() int id) throws MarketProductNotFoundException {
         Optional<MarketProductDto> marketProductOpt = marketProductService.findById(id);
 
-        if (!marketProductOpt.isPresent()) {
+        if (marketProductOpt.isEmpty()) {
             throw new MarketProductNotFoundException(id);
         }
 
@@ -49,7 +49,7 @@ public class MarketProductRestController {
     public MarketProductDto update(@RequestBody UpdateMarketProductDto updateMarketProductDto) throws MarketProductNotFoundException {
         Optional<MarketProductDto> marketProductOpt = marketProductService.update(updateMarketProductDto);
 
-        if (!marketProductOpt.isPresent()) {
+        if (marketProductOpt.isEmpty()) {
             throw new MarketProductNotFoundException(updateMarketProductDto.getId());
         }
 
