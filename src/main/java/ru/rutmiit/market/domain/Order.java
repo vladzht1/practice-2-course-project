@@ -2,11 +2,14 @@ package ru.rutmiit.market.domain;
 
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -31,14 +34,20 @@ public class Order extends BaseEntity {
         this.updatedAt = new Date();
     }
 
+    public Order(User user, Market market) {
+        this(user, market, new ArrayList<>());
+    }
+
     protected Order() {}
 
     @ManyToOne()
+    @JoinColumn(name = "user_id")
     public User getUser() {
         return user;
     }
 
     @ManyToOne()
+    @JoinColumn(name = "market_id")
     public Market getMarket() {
         return market;
     }
@@ -49,7 +58,7 @@ public class Order extends BaseEntity {
         return status;
     }
 
-    @OneToMany()
+    @OneToMany(fetch = FetchType.EAGER)
     public List<OrderPosition> getOrderPositions() {
         return orderPositions;
     }
@@ -64,6 +73,10 @@ public class Order extends BaseEntity {
         return updatedAt;
     }
 
+    public void addOrderPosition(OrderPosition orderPosition) {
+        orderPositions.add(orderPosition);
+    }
+
     public void setMarket(Market updatedMarket) {
         market = updatedMarket;
         markAsUpdated();
@@ -74,10 +87,21 @@ public class Order extends BaseEntity {
         markAsUpdated();
     }
 
-    // FIXME: This setter must have validation
     public void setOrderPositions(List<OrderPosition> updatedOrderPositions) {
         orderPositions = updatedOrderPositions;
         markAsUpdated();
+    }
+
+    public void setUser(User updatedUser) {
+        user = updatedUser;
+    }
+
+    public void setCreationDate(Date updatedCreationDate) {
+        createdAt = updatedCreationDate;
+    }
+
+    public void setLastUpdatedDate(Date updateDate) {
+        updatedAt = updateDate;
     }
 
     private void markAsUpdated() {
