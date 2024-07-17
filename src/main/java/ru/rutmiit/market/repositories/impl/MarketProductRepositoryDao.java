@@ -5,9 +5,12 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import ru.rutmiit.market.domain.MarketProduct;
+import ru.rutmiit.market.domain.Product;
 import ru.rutmiit.market.repositories.MarketProductRepository;
 
 @Repository
@@ -18,6 +21,11 @@ public class MarketProductRepositoryDao implements MarketProductRepository {
     @Override
     public List<MarketProduct> findAll() {
         return baseMarketProductRepository.findAll();
+    }
+
+    @Override
+    public List<MarketProduct> findByProducts(List<Product> products) {
+        return baseMarketProductRepository.findByProductsList(products);
     }
 
     @Override
@@ -43,4 +51,6 @@ public class MarketProductRepositoryDao implements MarketProductRepository {
 
 @Repository
 interface BaseMarketProductRepository extends JpaRepository<MarketProduct, Integer> {
+    @Query(value = "select market_product from MarketProduct market_product join market_product.product product where product in :products")
+    List<MarketProduct> findByProductsList(@Param("products") List<Product> products);
 }

@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import ru.rutmiit.market.domain.User;
@@ -18,7 +18,7 @@ public class UserRepositoryDao implements UserRepository {
 
     @Override
     public List<User> findAll() {
-        return baseRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
+        return baseRepository.findAll();
     }
 
     @Override
@@ -39,4 +39,6 @@ public class UserRepositoryDao implements UserRepository {
 
 @Repository
 interface BaseUserRepository extends JpaRepository<User, Integer> {
+    @Query(value = "select user from User user order by user.id asc")
+    List<User> findAll();
 }
