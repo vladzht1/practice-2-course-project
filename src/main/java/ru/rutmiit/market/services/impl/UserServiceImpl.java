@@ -11,6 +11,7 @@ import ru.rutmiit.market.domain.User;
 import ru.rutmiit.market.dtos.UserDto;
 import ru.rutmiit.market.dtos.api.AddUserDto;
 import ru.rutmiit.market.dtos.api.UpdateUserDto;
+import ru.rutmiit.market.exceptions.OperationFailedException;
 import ru.rutmiit.market.exceptions.UserNotFoundException;
 import ru.rutmiit.market.repositories.UserRepository;
 import ru.rutmiit.market.services.UserService;
@@ -45,6 +46,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto add(AddUserDto addUserDto) {
         User user = mapper.map(addUserDto, User.class);
+        user.setIsActive(true);
         return mapper.map(userRepository.save(user), UserDto.class);
     }
 
@@ -63,8 +65,7 @@ public class UserServiceImpl implements UserService {
         user.setEmail(updateUserDto.getEmail());
 
         if (userRepository.update(user).isEmpty()) {
-            // TODO: Implement
-            throw new RuntimeException("Error updating user");
+            throw new OperationFailedException("Error updating user");
         }
 
         return mapper.map(user, UserDto.class);
@@ -81,8 +82,7 @@ public class UserServiceImpl implements UserService {
         User user = userOpt.get();
 
         if (!user.getIsActive()) {
-            // TODO: Throw error
-            // return false;
+            throw new UserNotFoundException("User was deleted");
         }
 
         user.setIsActive(false);

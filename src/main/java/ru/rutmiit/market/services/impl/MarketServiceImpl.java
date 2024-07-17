@@ -36,7 +36,7 @@ public class MarketServiceImpl implements MarketService {
     public Optional<MarketDto> findById(Integer id) {
         Optional<Market> market = marketRepository.findById(id);
 
-        if (!market.isPresent()) {
+        if (market.isEmpty()) {
             return Optional.empty();
         }
 
@@ -62,8 +62,6 @@ public class MarketServiceImpl implements MarketService {
         if (marketOpt.isEmpty()) {
             throw new MarketNotFoundException(marketDto.getId());
         }
-
-        System.out.println(marketDto.getName() + " " + marketDto.getDescription());
 
         Market market = marketOpt.get();
         market.setName(marketDto.getName());
